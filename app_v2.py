@@ -16,4 +16,4 @@ def get_metrics():
     return jsonify({"count": request_count})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3031)
+    app.run(host="0.0.0.0", port=3030)
