@@ -1,39 +1,35 @@
-name: Run Flask App Tests
+name: Run Tests
 
 on:
   push:
+    branches: [ "*" ]
   pull_request:
+    branches: [ "*" ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
+    - uses: actions/checkout@v2
+    
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.12'
-
+        python-version: '3.9'
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest flask
+        sudo apt-get install jq
 
-    - name: Run unit tests
+    - name: Run application
       run: |
-        PYTHONPATH=. pytest test/ -v
+        python app.py &
+        sleep 3  # Give the app time to start
 
-    - name: Start Flask server
+    - name: Run tests
       run: |
-        python ../app.py &
-        sleep 5
-        echo "Server started"
-
-    - name: Run integration tests
-      run: |
-        chmod +x test.sh
-        ./test.sh
+        chmod +x test/test.sh
+        ./test/test.sh
