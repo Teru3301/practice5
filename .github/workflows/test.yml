@@ -26,7 +26,7 @@ jobs:
 
     - name: Run application
       run: |
-        python app.py &
+        python app_v2.py &
         sleep 3  # Give the app time to start
 
     - name: Run tests
