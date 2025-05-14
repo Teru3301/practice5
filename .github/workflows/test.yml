@@ -29,7 +29,7 @@ jobs:
 
     - name: Start Flask server
       run: |
-        python app.py &
+        python ../app.py &
         sleep 5
         echo "Server started"
 
